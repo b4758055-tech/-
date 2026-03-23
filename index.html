@@ -1,111 +1,363 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Доступ ограничен</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Доступ ограничен</title>
 
-<style>
-body {
-    margin: 0;
-    height: 100vh;
-    font-family: Arial, sans-serif;
-    background: linear-gradient(270deg, #0f2027, #203a43, #2c5364);
-    background-size: 600% 600%;
-    animation: gradientMove 10s ease infinite;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-}
+    <!-- Подключаем современный шрифт Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-@keyframes gradientMove {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
+    <style>
+        :root {
+            /* Строгая, премиальная палитра */
+            --bg-color-1: #090a0f;
+            --bg-color-2: #12151f;
+            --bg-color-3: #0d1117;
+            
+            --primary-color: #2563eb; /* Строгий синий */
+            --primary-hover: #1d4ed8;
+            
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border-color: rgba(255, 255, 255, 0.08);
+            --card-bg: rgba(18, 21, 30, 0.75);
+        }
 
-.card {
-    background: rgba(0,0,0,0.5);
-    backdrop-filter: blur(10px);
-    padding: 40px;
-    border-radius: 20px;
-    text-align: center;
-    max-width: 500px;
-    box-shadow: 0 0 30px rgba(0,0,0,0.5);
-    animation: fadeIn 1.5s ease;
-}
+        body {
+            margin: 0;
+            height: 100vh;
+            font-family: 'Inter', Arial, sans-serif;
+            background: linear-gradient(135deg, var(--bg-color-1), var(--bg-color-2), var(--bg-color-3));
+            background-size: 400% 400%;
+            animation: gradientMove 30s ease infinite; /* Очень плавное движение фона */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-main);
+            overflow: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
-}
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
 
-h1 {
-    margin-bottom: 20px;
-    font-size: 26px;
-}
+        /* Строгая карточка */
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            max-width: 900px;
+            width: 90%;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255,255,255,0.05);
+            animation: fadeIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            opacity: 0;
+            transform: translateY(20px);
+            display: flex;
+            flex-direction: row;
+            overflow: hidden;
+            position: relative;
+            z-index: 10;
+        }
 
-p {
-    font-size: 16px;
-    opacity: 0.9;
-}
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
-.btn {
-    margin-top: 20px;
-    padding: 12px 20px;
-    border-radius: 10px;
-    border: none;
-    background: #00c6ff;
-    color: black;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s;
-}
+        /* Левая сторона: Блок для фото */
+        .card-image {
+            flex: 1;
+            min-width: 350px;
+            position: relative;
+            overflow: hidden;
+            background-color: #000;
+        }
 
-.btn:hover {
-    background: #0072ff;
-    color: white;
-    transform: scale(1.05);
-}
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            opacity: 0.8; /* Слегка приглушаем картинку для строгости */
+            transition: transform 0.8s ease, opacity 0.8s ease;
+        }
 
-.glow {
-    position: absolute;
-    width: 300px;
-    height: 300px;
-    background: rgba(0, 255, 255, 0.2);
-    filter: blur(100px);
-    animation: float 6s infinite ease-in-out;
-}
+        .card:hover .card-image img {
+            transform: scale(1.03);
+            opacity: 0.9;
+        }
 
-@keyframes float {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-40px); }
-    100% { transform: translateY(0px); }
-}
-</style>
+        /* Плавный переход от картинки к фону карточки */
+        .card-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 50%;
+            background: linear-gradient(to right, transparent, rgba(18, 21, 30, 0.95));
+            z-index: 2;
+        }
+
+        /* Правая сторона: Текстовый контент */
+        .card-content {
+            flex: 1;
+            padding: 50px 45px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 6px 12px;
+            background: rgba(244, 63, 94, 0.1); /* Легкий красный оттенок предупреждения */
+            border: 1px solid rgba(244, 63, 94, 0.2);
+            color: #fb7185;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            margin-bottom: 24px;
+            align-self: flex-start;
+        }
+
+        .status-badge::before {
+            content: '';
+            display: block;
+            width: 6px;
+            height: 6px;
+            background-color: #fb7185;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+
+        h1 {
+            margin-top: 0;
+            margin-bottom: 16px;
+            font-size: 30px;
+            font-weight: 600;
+            color: var(--text-main);
+            letter-spacing: -0.02em;
+        }
+
+        p {
+            font-size: 15px;
+            line-height: 1.7;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            font-weight: 400;
+        }
+
+        .divider {
+            height: 1px;
+            background: var(--border-color);
+            margin: 24px 0;
+            width: 100%;
+        }
+
+        h3 {
+            margin-top: 0;
+            margin-bottom: 16px;
+            font-size: 16px;
+            color: var(--text-main);
+            font-weight: 500;
+        }
+
+        .steps-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 28px 0;
+        }
+
+        .steps-list li {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            font-size: 14px;
+            color: #cbd5e1;
+            background: rgba(255, 255, 255, 0.02);
+            padding: 12px 16px;
+            border-radius: 8px;
+            border-left: 2px solid transparent;
+            transition: all 0.2s ease;
+        }
+
+        .steps-list li:hover {
+            background: rgba(255, 255, 255, 0.04);
+            border-left-color: var(--primary-color);
+        }
+
+        .steps-list li span {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 22px;
+            height: 22px;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-main);
+            border-radius: 4px;
+            margin-right: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .love-message {
+            font-size: 14px;
+            font-weight: 400;
+            color: #94a3b8;
+            margin-bottom: 32px;
+            padding-left: 16px;
+            border-left: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* Строгая, классическая кнопка */
+        .btn {
+            padding: 14px 24px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: var(--primary-color);
+            color: white;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            align-self: flex-start;
+            font-family: inherit;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+        }
+
+        .btn:hover {
+            background: var(--primary-hover);
+            box-shadow: 0 6px 16px rgba(37, 99, 235, 0.3);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .btn:active {
+            transform: translateY(1px);
+            box-shadow: 0 2px 8px rgba(37, 99, 235, 0.2);
+        }
+
+        /* Оставляем элементы свечения для HTML-структуры, но делаем их очень тусклыми для придания объёма черному фону */
+        .glow {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(140px);
+            z-index: 1;
+            opacity: 0.4; /* Минимальная видимость */
+            pointer-events: none;
+        }
+
+        .glow-1 {
+            width: 500px;
+            height: 500px;
+            background: rgba(37, 99, 235, 0.05); /* Едва заметный синий */
+            top: -200px;
+            left: -100px;
+        }
+
+        .glow-2 {
+            width: 600px;
+            height: 600px;
+            background: rgba(255, 255, 255, 0.02); /* Едва заметный белый */
+            bottom: -300px;
+            right: -100px;
+        }
+
+        .glow-3 {
+            width: 400px;
+            height: 400px;
+            background: rgba(37, 99, 235, 0.03);
+            top: 30%;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* Адаптивность для мобильных устройств */
+        @media (max-width: 768px) {
+            .card {
+                flex-direction: column;
+                max-width: 500px;
+            }
+            
+            .card-image {
+                min-width: 100%;
+                height: 200px;
+            }
+
+            .card-image::after {
+                width: 100%;
+                height: 40%;
+                top: auto;
+                background: linear-gradient(to top, rgba(18, 21, 30, 0.95), transparent);
+            }
+
+            .card-content {
+                padding: 32px 24px;
+            }
+
+            .btn {
+                align-self: stretch;
+                justify-content: center;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-<div class="glow"></div>
+<!-- Фоновые свечения (сделаны очень тусклыми и строгими) -->
+<div class="glow glow-1"></div>
+<div class="glow glow-2"></div>
+<div class="glow glow-3"></div>
 
 <div class="card">
-    <h1>🚫 Доступ ограничен</h1>
-    <p>
-        Мы сожалеем, но мы не обслуживаем пользователей с российским IP.
-    </p>
-    <p>
-        Пожалуйста, включите VPN и выберите любую другую страну,
-        чтобы получить доступ ко всем функциям нашего сайта.
-    </p>
-    <p>
-        Любим вас ❤️
-    </p>
+    <!-- Левая колонка с изображением -->
+    <div class="card-image">
+        <img src="https://img.freepik.com/free-vector/cute-sad-cat-sitting-rain-cloud-cartoon-vector-icon-illustration-animal-nature-isolated-flat_138676-14969.jpg?semt=ais_hybrid&w=740&q=80" alt="Block illustration">
+    </div>
 
-    <button class="btn" onclick="location.reload()">
-        Проверить снова
-    </button>
+    <!-- Правая колонка с контентом -->
+    <div class="card-content">
+        <div class="status-badge">Доступ ограничен</div>
+        <h1>Вход недоступен</h1>
+        
+        <p>
+            Мы искренне сожалеем, но в связи с текущими техническими ограничениями, мы временно не обслуживаем пользователей с российским IP-адресом. Наша система зафиксировала подключение из ограниченного региона.
+        </p>
+
+        <div class="divider"></div>
+
+        <h3>Как получить доступ?</h3>
+        <ul class="steps-list">
+            <li><span>1</span> Включите надежный VPN-клиент на вашем устройстве.</li>
+            <li><span>2</span> Выберите сервер в любой другой стране (например, Европа или Азия).</li>
+            <li><span>3</span> Обновите страницу, чтобы получить доступ ко всем функциям.</li>
+        </ul>
+
+        <p class="love-message">
+            Мы продолжаем работать для вас и надеемся на скорейшее решение ситуации. Любим вас ❤️
+        </p>
+
+        <button class="btn" onclick="location.reload()">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 2v6h-6M2.13 15.57a9 9 0 1 0 3.87-11.61l-4.8 4.8"/></svg>
+            Проверить соединение
+        </button>
+    </div>
 </div>
 
 </body>
