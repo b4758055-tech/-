@@ -5,19 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Доступ ограничен</title>
 
-    <!-- Подключаем современный шрифт Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
-        :root {
-            /* Строгая, премиальная палитра */
+        :root {         
             --bg-color-1: #090a0f;
             --bg-color-2: #12151f;
             --bg-color-3: #0d1117;
             
-            --primary-color: #2563eb; /* Строгий синий */
+            --primary-color: #2563eb; 
             --primary-hover: #1d4ed8;
             
             --text-main: #f8fafc;
@@ -32,7 +30,7 @@
             font-family: 'Inter', Arial, sans-serif;
             background: linear-gradient(135deg, var(--bg-color-1), var(--bg-color-2), var(--bg-color-3));
             background-size: 400% 400%;
-            animation: gradientMove 30s ease infinite; /* Очень плавное движение фона */
+            animation: gradientMove 30s ease infinite; 
             display: flex;
             align-items: center;
             justify-content: center;
@@ -48,7 +46,6 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* Строгая карточка */
         .card {
             background: var(--card-bg);
             backdrop-filter: blur(24px);
@@ -73,7 +70,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Левая сторона: Блок для фото */
         .card-image {
             flex: 1;
             min-width: 350px;
@@ -87,7 +83,7 @@
             height: 100%;
             object-fit: cover;
             display: block;
-            opacity: 0.8; /* Слегка приглушаем картинку для строгости */
+            opacity: 0.8; 
             transition: transform 0.8s ease, opacity 0.8s ease;
         }
 
@@ -96,7 +92,6 @@
             opacity: 0.9;
         }
 
-        /* Плавный переход от картинки к фону карточки */
         .card-image::after {
             content: '';
             position: absolute;
@@ -108,7 +103,6 @@
             z-index: 2;
         }
 
-        /* Правая сторона: Текстовый контент */
         .card-content {
             flex: 1;
             padding: 50px 45px;
@@ -121,7 +115,7 @@
             display: inline-flex;
             align-items: center;
             padding: 6px 12px;
-            background: rgba(244, 63, 94, 0.1); /* Легкий красный оттенок предупреждения */
+            background: rgba(244, 63, 94, 0.1);
             border: 1px solid rgba(244, 63, 94, 0.2);
             color: #fb7185;
             border-radius: 6px;
@@ -222,7 +216,6 @@
             border-left: 2px solid rgba(255, 255, 255, 0.2);
         }
 
-        /* Строгая, классическая кнопка */
         .btn {
             padding: 14px 24px;
             border-radius: 8px;
@@ -252,20 +245,19 @@
             box-shadow: 0 2px 8px rgba(37, 99, 235, 0.2);
         }
 
-        /* Оставляем элементы свечения для HTML-структуры, но делаем их очень тусклыми для придания объёма черному фону */
         .glow {
             position: absolute;
             border-radius: 50%;
             filter: blur(140px);
             z-index: 1;
-            opacity: 0.4; /* Минимальная видимость */
+            opacity: 0.4; 
             pointer-events: none;
         }
 
         .glow-1 {
             width: 500px;
             height: 500px;
-            background: rgba(37, 99, 235, 0.05); /* Едва заметный синий */
+            background: rgba(37, 99, 235, 0.05); 
             top: -200px;
             left: -100px;
         }
@@ -273,7 +265,7 @@
         .glow-2 {
             width: 600px;
             height: 600px;
-            background: rgba(255, 255, 255, 0.02); /* Едва заметный белый */
+            background: rgba(255, 255, 255, 0.02);
             bottom: -300px;
             right: -100px;
         }
@@ -287,7 +279,6 @@
             transform: translateX(-50%);
         }
 
-        /* Адаптивность для мобильных устройств */
         @media (max-width: 768px) {
             .card {
                 flex-direction: column;
@@ -320,18 +311,15 @@
 
 <body>
 
-<!-- Фоновые свечения (сделаны очень тусклыми и строгими) -->
 <div class="glow glow-1"></div>
 <div class="glow glow-2"></div>
 <div class="glow glow-3"></div>
 
 <div class="card">
-    <!-- Левая колонка с изображением -->
     <div class="card-image">
         <img src="https://img.freepik.com/free-vector/cute-sad-cat-sitting-rain-cloud-cartoon-vector-icon-illustration-animal-nature-isolated-flat_138676-14969.jpg?semt=ais_hybrid&w=740&q=80" alt="Block illustration">
     </div>
 
-    <!-- Правая колонка с контентом -->
     <div class="card-content">
         <div class="status-badge">Доступ ограничен</div>
         <h1>Вход недоступен</h1>
