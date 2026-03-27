@@ -3,469 +3,666 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Доступ ограничен</title>
+    <title>Ой, доступ ограничен 🥺</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <style>
         :root {         
-            --bg-color-1: #090a0f;
-            --bg-color-2: #12151f;
-            --bg-color-3: #0a0d14;
+            /* Премиальная темная тема */
+            --bg-base: #08090d;
+            --bg-color-1: #0f111a;
             
-            --primary-color: #2563eb; 
-            --primary-hover: #3b82f6; /* Сделал цвет при наведении чуть ярче для лучшего контраста */
+            --primary-color: #6366f1; /* Индиго */
+            --primary-hover: #818cf8; 
+            --tg-color: #38bdf8;
+            --tg-hover: #7dd3fc;
+            --success-color: #34d399;
+            --danger-color: #fb7185;
+            --warning-color: #fbbf24;
             
             --text-main: #f8fafc;
+            --text-secondary: #e2e8f0;
             --text-muted: #94a3b8;
-            --border-color: rgba(255, 255, 255, 0.08);
-            --card-bg: rgba(18, 21, 30, 0.65); /* Чуть больше прозрачности для эффекта стекла */
             
-            --glow-color-1: rgba(37, 99, 235, 0.08);
-            --glow-color-2: rgba(244, 63, 94, 0.05);
-            --glow-color-3: rgba(139, 92, 246, 0.06);
+            /* Эффект матового стекла и подсветки */
+            --card-bg: rgba(20, 22, 31, 0.65); 
+            --card-hover: rgba(28, 31, 43, 0.85);
+            --border-light: rgba(255, 255, 255, 0.05);
+            --border-hover: rgba(99, 102, 241, 0.3);
+            
+            /* Свечения */
+            --glow-color-1: rgba(99, 102, 241, 0.12);
+            --glow-color-2: rgba(236, 72, 153, 0.1);
+            --glow-color-3: rgba(56, 189, 248, 0.1);
         }
 
         body {
             margin: 0;
             min-height: 100vh;
-            /* Исправление для мобильных браузеров, чтобы не прыгала высота из-за адресной строки */
-            height: 100dvh; 
-            font-family: 'Inter', Arial, sans-serif;
-            background: linear-gradient(135deg, var(--bg-color-1), var(--bg-color-2), var(--bg-color-3));
-            background-size: 400% 400%;
-            animation: gradientMove 20s ease infinite; 
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            height: auto; 
+            overflow-y: auto;
+            overflow-x: hidden;
+            font-family: 'Nunito', sans-serif;
+            background-color: var(--bg-base);
             color: var(--text-main);
-            overflow: hidden;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
-            padding: 20px;
+            padding: 40px 20px; 
             box-sizing: border-box;
-        }
-
-        /* Оптимизированная анимация фона */
-        @keyframes gradientMove {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        .card {
-            background: var(--card-bg);
-            backdrop-filter: blur(32px);
-            -webkit-backdrop-filter: blur(32px);
-            border: 1px solid var(--border-color);
-            border-radius: 24px; /* Более современные скругления */
-            max-width: 960px;
-            width: 100%;
-            /* Улучшенные, глубокие тени */
-            box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.6), 
-                        inset 0 1px 0 rgba(255,255,255,0.1),
-                        inset 0 0 20px rgba(255,255,255,0.02);
-            animation: cardAppear 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-            opacity: 0;
-            transform: translateY(30px) scale(0.98);
-            display: flex;
-            flex-direction: row;
-            overflow: hidden;
-            position: relative;
-            z-index: 10;
-            will-change: transform, opacity;
-        }
-
-        @keyframes cardAppear {
-            from { opacity: 0; transform: translateY(40px) scale(0.96); }
-            to { opacity: 1; transform: translateY(0) scale(1); }
-        }
-
-        .card-image {
-            flex: 1.2; /* Чуть больше места для картинки на ПК */
-            min-width: 380px;
-            position: relative;
-            overflow: hidden;
-            background-color: #050505;
-        }
-
-        .card-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-            opacity: 0.7; 
-            transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 1.2s ease;
-            will-change: transform;
-        }
-
-        .card:hover .card-image img {
-            transform: scale(1.05);
-            opacity: 0.9;
-        }
-
-        .card-image::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            left: 0;
-            /* Улучшенный градиент для плавного перехода в цвет карточки */
-            background: linear-gradient(to right, transparent 20%, rgba(18, 21, 30, 0.9) 80%, rgba(18, 21, 30, 1) 100%);
-            z-index: 2;
-            pointer-events: none;
-        }
-
-        .card-content {
-            flex: 1;
-            padding: 60px 50px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            position: relative;
-            z-index: 3;
-            background: linear-gradient(to left, rgba(18,21,30,0) 0%, rgba(18,21,30,0.4) 100%);
-        }
-
-        /* Общий класс для поочередного появления элементов */
-        .fade-in-item {
-            opacity: 0;
-            transform: translateY(15px);
-            animation: slideUpFade 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-            will-change: transform, opacity;
-        }
-
-        .delay-1 { animation-delay: 0.2s; }
-        .delay-2 { animation-delay: 0.3s; }
-        .delay-3 { animation-delay: 0.4s; }
-        .delay-4 { animation-delay: 0.5s; }
-        .delay-5 { animation-delay: 0.6s; }
-        .delay-6 { animation-delay: 0.7s; }
-        .delay-7 { animation-delay: 0.8s; }
-
-        @keyframes slideUpFade {
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .status-badge {
-            display: inline-flex;
-            align-items: center;
-            padding: 8px 14px;
-            background: rgba(244, 63, 94, 0.15);
-            border: 1px solid rgba(244, 63, 94, 0.3);
-            color: #fb7185;
-            border-radius: 8px;
-            font-size: 13px;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            margin-bottom: 24px;
-            align-self: flex-start;
-            box-shadow: 0 4px 12px rgba(244, 63, 94, 0.1);
-            backdrop-filter: blur(4px);
-        }
-
-        .status-badge::before {
-            content: '';
-            display: block;
-            width: 8px;
-            height: 8px;
-            background-color: #fb7185;
-            border-radius: 50%;
-            margin-right: 8px;
-            box-shadow: 0 0 10px #fb7185;
-            animation: pulseDot 2s infinite;
-        }
-
-        @keyframes pulseDot {
-            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(251, 113, 133, 0.7); }
-            70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(251, 113, 133, 0); }
-            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(251, 113, 133, 0); }
-        }
-
-        h1 {
-            margin-top: 0;
-            margin-bottom: 16px;
-            font-size: 36px; /* Немного увеличил заголовок */
-            font-weight: 700;
-            color: var(--text-main);
-            letter-spacing: -0.03em;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
-        }
-
-        p {
-            font-size: 16px; /* Чуть увеличил текст для читаемости */
-            line-height: 1.7;
-            color: var(--text-muted);
-            margin-bottom: 24px;
-            font-weight: 400;
-        }
-
-        .divider {
-            height: 1px;
-            background: linear-gradient(90deg, transparent, var(--border-color), transparent);
-            margin: 28px 0;
-            width: 100%;
-        }
-
-        h3 {
-            margin-top: 0;
-            margin-bottom: 16px;
-            font-size: 18px;
-            color: var(--text-main);
-            font-weight: 600;
-        }
-
-        .steps-list {
-            list-style: none;
-            padding: 0;
-            margin: 0 0 32px 0;
-        }
-
-        .steps-list li {
-            display: flex;
-            align-items: center;
-            margin-bottom: 12px;
-            font-size: 15px;
-            color: #cbd5e1;
-            background: rgba(255, 255, 255, 0.03);
-            padding: 14px 18px;
-            border-radius: 10px;
-            border-left: 3px solid transparent;
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .steps-list li:hover {
-            background: rgba(255, 255, 255, 0.06);
-            border-left-color: var(--primary-color);
-            transform: translateX(4px);
-        }
-
-        .steps-list li span {
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 26px;
-            height: 26px;
-            background: rgba(37, 99, 235, 0.2);
-            color: #60a5fa;
-            border-radius: 6px;
-            margin-right: 14px;
-            font-size: 13px;
-            font-weight: 700;
-            flex-shrink: 0;
-            border: 1px solid rgba(37, 99, 235, 0.3);
         }
 
-        .love-message {
-            font-size: 15px;
-            font-weight: 400;
-            color: #94a3b8;
-            margin-bottom: 36px;
-            padding-left: 20px;
-            border-left: 3px solid rgba(255, 255, 255, 0.15);
-            font-style: italic;
-        }
-
-        .btn {
-            padding: 16px 28px;
-            border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            background: linear-gradient(135deg, var(--primary-color), #1e40af);
-            color: white;
-            font-size: 15px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            align-self: flex-start;
-            font-family: inherit;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            box-shadow: 0 8px 20px -6px rgba(37, 99, 235, 0.5), inset 0 1px 0 rgba(255,255,255,0.2);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: 0.5s;
-        }
-
-        .btn:hover::after {
-            left: 100%;
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 25px -6px rgba(37, 99, 235, 0.6), inset 0 1px 0 rgba(255,255,255,0.2);
-            background: linear-gradient(135deg, var(--primary-hover), var(--primary-color));
-        }
-
-        .btn:active {
-            transform: translateY(1px);
-            box-shadow: 0 4px 10px -4px rgba(37, 99, 235, 0.4);
-        }
-
-        .btn svg {
-            transition: transform 0.3s ease;
-        }
-
-        .btn:hover svg {
-            transform: rotate(180deg);
-        }
-
-        /* Анимированные шары (свечения) на фоне */
+        /* Анимированные фоновые градиенты */
         .glow {
-            position: absolute;
+            position: fixed;
             border-radius: 50%;
-            filter: blur(120px);
-            z-index: 1;
-            opacity: 0.6; 
+            z-index: 0;
+            opacity: 0.9; 
             pointer-events: none;
             will-change: transform;
         }
 
         .glow-1 {
-            width: 50vw;
-            height: 50vw;
-            max-width: 600px;
-            max-height: 600px;
-            background: var(--glow-color-1); 
-            top: -10%;
-            left: -10%;
-            animation: floatGlow 15s ease-in-out infinite alternate;
+            width: 70vw; max-width: 800px; height: 70vw; max-height: 800px;
+            background: radial-gradient(circle, var(--glow-color-1) 0%, transparent 70%); 
+            top: -10%; left: -10%;
+            animation: floatGlow 18s ease-in-out infinite alternate;
         }
 
         .glow-2 {
-            width: 60vw;
-            height: 60vw;
-            max-width: 700px;
-            max-height: 700px;
-            background: var(--glow-color-2);
-            bottom: -20%;
-            right: -10%;
-            animation: floatGlow 18s ease-in-out infinite alternate-reverse;
+            width: 60vw; max-width: 700px; height: 60vw; max-height: 700px;
+            background: radial-gradient(circle, var(--glow-color-2) 0%, transparent 70%);
+            bottom: -10%; right: -10%;
+            animation: floatGlow 22s ease-in-out infinite alternate-reverse;
         }
-
+        
         .glow-3 {
-            width: 40vw;
-            height: 40vw;
-            max-width: 500px;
-            max-height: 500px;
-            background: var(--glow-color-3);
-            top: 40%;
-            left: 50%;
-            transform: translateX(-50%);
-            animation: floatGlowCenter 20s ease-in-out infinite alternate;
+            width: 50vw; max-width: 600px; height: 50vw; max-height: 600px;
+            background: radial-gradient(circle, var(--glow-color-3) 0%, transparent 70%);
+            top: 40%; left: 30%;
+            animation: floatGlow 25s ease-in-out infinite alternate;
         }
 
         @keyframes floatGlow {
-            0% { transform: translate(0, 0) scale(1); }
-            50% { transform: translate(5%, 5%) scale(1.1); }
-            100% { transform: translate(-5%, 10%) scale(0.95); }
+            0% { transform: translate3d(0, 0, 0) scale(1); }
+            50% { transform: translate3d(5%, 8%, 0) scale(1.1); }
+            100% { transform: translate3d(-5%, 12%, 0) scale(0.9); }
         }
 
-        @keyframes floatGlowCenter {
-            0% { transform: translate(-50%, -10%) scale(1); }
-            100% { transform: translate(-50%, 10%) scale(1.2); }
+        /* СЕТКА BENTO 3.0 */
+        .bento-container {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            max-width: 1300px; 
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 24px;
         }
 
-        /* Оптимизация под смартфоны */
-        @media (max-width: 860px) {
-            .card {
-                flex-direction: column;
-                max-width: 540px;
-                border-radius: 20px;
-            }
+        /* Универсальная карточка */
+        .bento-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid var(--border-light);
+            border-radius: 32px; 
+            padding: 40px;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 40px -10px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05);
+            opacity: 0;
+            transform: translate3d(0, 30px, 0);
+            animation: slideUpCard 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes slideUpCard {
+            to { opacity: 1; transform: translate3d(0, 0, 0); }
+        }
+
+        /* Задержки для красивого каскадного появления */
+        .bento-card:nth-child(1) { animation-delay: 0.1s; }
+        .bento-card:nth-child(2) { animation-delay: 0.2s; }
+        .bento-card:nth-child(3) { animation-delay: 0.3s; }
+        .bento-card:nth-child(4) { animation-delay: 0.4s; }
+        .bento-card:nth-child(5) { animation-delay: 0.5s; }
+
+        /* Эффект свечения при наведении */
+        .bento-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            border-radius: 32px;
+            padding: 2px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1), transparent 50%, rgba(99, 102, 241, 0.3));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
+        }
+
+        .bento-card:hover {
+            background: var(--card-hover);
+            transform: translate3d(0, -6px, 0);
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5), 0 0 30px -10px rgba(99, 102, 241, 0.2);
+            border-color: transparent; 
+        }
+
+        .bento-card:hover::before {
+            opacity: 1;
+        }
+
+        /* Распределение по сетке */
+        .card-hero { grid-column: span 12; display: flex; flex-direction: row; align-items: center; gap: 40px; }
+        .card-instructions { grid-column: span 8; }
+        .card-vpns { grid-column: span 4; }
+        .card-faq { grid-column: span 12; }
+        .card-support { grid-column: span 12; flex-direction: row; align-items: center; justify-content: space-between; gap: 30px; background: linear-gradient(135deg, rgba(99, 102, 241, 0.08), transparent);}
+
+        /* СТИКЕРЫ */
+        .sticker {
+            width: 130px;
+            height: 130px;
+            flex-shrink: 0;
+            filter: drop-shadow(0 20px 30px rgba(0,0,0,0.4));
+            animation: floatSticker 6s ease-in-out infinite;
+            will-change: transform;
+        }
+
+        .sticker-small {
+            width: 50px;
+            height: 50px;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.2));
+        }
+
+        @keyframes floatSticker {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-12px) rotate(4deg); }
+        }
+
+        /* Тексты */
+        h1 {
+            font-size: 44px; 
+            font-weight: 800;
+            margin: 0 0 16px 0;
+            color: var(--text-main);
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+        }
+
+        h2 {
+            font-size: 26px;
+            font-weight: 700;
+            margin: 0 0 24px 0;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        p {
+            font-size: 18px; 
+            line-height: 1.6;
+            color: var(--text-muted);
+            margin: 0;
+            font-weight: 500;
+        }
+
+        .highlight-danger { color: var(--danger-color); font-weight: 700; }
+        .highlight-success { color: var(--success-color); font-weight: 700; }
+        .highlight-primary { color: var(--primary-hover); font-weight: 700; }
+
+        /* ИНСТРУКЦИЯ */
+        .checklist { display: flex; flex-direction: column; gap: 16px; height: 100%; justify-content: center;}
+
+        .check-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            background: rgba(255, 255, 255, 0.02);
+            padding: 20px;
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.03);
+            transition: all 0.3s ease;
+        }
+
+        .check-item:hover {
+            background: rgba(255, 255, 255, 0.04);
+            transform: translateX(8px);
+            border-color: rgba(255,255,255,0.08);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .check-emoji { font-size: 28px; line-height: 1; margin-top: 2px; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2)); }
+        .check-text { color: var(--text-secondary); font-size: 18px; line-height: 1.5; font-weight: 700; }
+        .check-text span { display: block; font-size: 15px; color: var(--text-muted); font-weight: 500; margin-top: 8px; line-height: 1.6; }
+
+        /* СПИСОК VPN */
+        .vpn-list { display: flex; flex-direction: column; gap: 12px; }
+        .vpn-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 16px;
+            background: rgba(255,255,255,0.02);
+            border-radius: 16px;
+            border: 1px solid rgba(255,255,255,0.03);
+            color: var(--text-secondary);
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        .vpn-item:hover {
+            background: rgba(99, 102, 241, 0.1);
+            border-color: rgba(99, 102, 241, 0.3);
+            transform: scale(1.02);
+            color: #fff;
+        }
+        .vpn-icon { font-size: 20px; }
+
+        /* ИНТЕРАКТИВНЫЙ FAQ */
+        .faq-wrapper { display: flex; flex-direction: column; gap: 16px; }
+
+        .faq-item {
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--border-light);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item:hover { border-color: rgba(255,255,255,0.15); }
+
+        .faq-item.active {
+            border-color: var(--primary-color);
+            background: rgba(99, 102, 241, 0.05);
+            box-shadow: 0 10px 30px -10px rgba(99, 102, 241, 0.2);
+        }
+
+        .faq-question {
+            width: 100%;
+            text-align: left;
+            background: transparent;
+            border: none;
+            padding: 24px;
+            font-family: inherit;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-secondary);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            transition: color 0.2s ease;
+            outline: none;
+        }
+
+        .faq-question:hover { color: #fff; }
+
+        .faq-question * {
+            pointer-events: none;
+        }
+
+        .faq-icon {
+            flex-shrink: 0;
+            width: 36px; height: 36px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.3s;
+        }
+
+        .faq-item.active .faq-icon {
+            transform: rotate(135deg); 
+            background: var(--primary-color);
+        }
+
+        .faq-icon svg { width: 18px; height: 18px; color: #fff; transition: color 0.3s; }
+
+        .faq-answer-wrapper {
+            display: grid;
+            grid-template-rows: 0fr;
+            transition: grid-template-rows 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .faq-item.active .faq-answer-wrapper {
+            grid-template-rows: 1fr;
+        }
+
+        .faq-answer-inner {
+            overflow: hidden;
+            min-height: 0; 
+            padding: 0 24px;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .faq-item.active .faq-answer-inner {
+            padding: 0 24px 24px 24px;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .faq-answer-inner p { margin: 0 0 14px 0; font-size: 16px; color: var(--text-muted); line-height: 1.6; }
+        .faq-answer-inner p:last-child { margin: 0; }
+
+        /* КНОПКИ */
+        .btn-group { display: flex; gap: 16px; flex-wrap: wrap; }
+
+.btn {
+    padding: 18px 36px;
+    border-radius: 20px;
+    border: none;
+    background: #fff;
+    color: #000;
+    font-size: 18px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    font-family: inherit;
+    
+    /* Добавленные/измененные свойства для центрирования: */
+    display: inline-flex;    /* Делаем гибким контейнером */
+    align-items: center;     /* Центр по вертикали */
+    justify-content: center; /* Центр по горизонтали */
+    text-align: center;
+    box-sizing: border-box;  /* Чтобы padding не распирал кнопку */
+    min-height: 60px;        /* Фиксируем минимальную высоту для обоих типов */
+    
+    gap: 12px;
+    box-shadow: 0 8px 20px -6px rgba(255, 255, 255, 0.4);
+    text-decoration: none;
+    will-change: transform;
+    outline: none;
+}
+
+        .btn:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 15px 30px -6px rgba(255, 255, 255, 0.5);
+        }
+
+        .btn:active { transform: translateY(0) scale(0.98); }
+
+        .refresh-icon { transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); }
+        .btn-refresh:hover .refresh-icon { transform: rotate(180deg); }
+
+        .btn-tg {
+            background: linear-gradient(135deg, var(--tg-color), #0ea5e9);
+            color: #fff;
+            box-shadow: 0 8px 20px -6px rgba(56, 189, 248, 0.5);
+        }
+
+        .btn-tg:hover {
+            background: linear-gradient(135deg, var(--tg-hover), var(--tg-color));
+            box-shadow: 0 15px 30px -6px rgba(56, 189, 248, 0.6);
+        }
+        
+        .tg-icon { transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); width: 24px; height: 24px; }
+        .btn-tg:hover .tg-icon { transform: translateY(-4px) scale(1.15) rotate(5deg); }
+
+        /* АДАПТИВНОСТЬ */
+        @media (max-width: 1200px) {
+            .card-instructions { grid-column: span 7; }
+            .card-vpns { grid-column: span 5; }
+        }
+
+        @media (max-width: 900px) {
+            .card-hero { flex-direction: column; text-align: center; gap: 24px; }
+            .card-instructions, .card-vpns { grid-column: span 12; }
+            .card-support { flex-direction: column; text-align: center; }
+        }
+
+        @media (max-width: 640px) {
+            body { padding: 20px 10px; }
+            .bento-card { padding: 24px; border-radius: 28px; }
             
-            .card-image {
-                min-width: 100%;
-                height: 240px; /* Увеличил высоту для телефонов */
-            }
-
-            .card-image::after {
-                background: linear-gradient(to top, rgba(18, 21, 30, 1) 0%, rgba(18, 21, 30, 0.8) 20%, transparent 100%);
-            }
-
-            .card-content {
-                padding: 30px 24px 40px; /* Оптимизировал отступы для пальцев */
-                background: none; /* Убираем градиент слева, так как на мобилках картинка сверху */
-            }
-
-            h1 {
-                font-size: 28px;
-            }
-
-            p {
-                font-size: 15px;
-            }
-
-            .btn {
-                align-self: stretch; /* Кнопка на всю ширину на телефоне */
-                padding: 18px 24px;
-                font-size: 16px;
-            }
-        }
-
-        /* Дополнительная поддержка очень маленьких экранов */
-        @media (max-width: 400px) {
-            .card-image { height: 200px; }
-            .card-content { padding: 24px 20px 30px; }
-            h1 { font-size: 24px; }
+            h1 { font-size: 32px; }
+            p { font-size: 16px; }
+            h2 { font-size: 22px; }
+            
+            .sticker { width: 100px; height: 100px; }
+            .sticker-small { width: 44px; height: 44px; margin-bottom: 16px; }
+            
+            .check-item { padding: 16px; flex-direction: column; gap: 12px; }
+            .check-text { font-size: 16px; }
+            
+            .faq-question { padding: 16px; font-size: 16px; gap: 12px; }
+            .faq-item.active .faq-answer-inner { padding: 0 16px 16px 16px; }
+            .faq-icon { width: 30px; height: 30px; }
+            
+            .btn-group { flex-direction: column; width: 100%; }
+            .btn { width: 100%; padding: 16px 20px; font-size: 16px; }
         }
     </style>
 </head>
 
 <body>
 
-<!-- ФОНОВЫЕ СВЕЧЕНИЯ -->
 <div class="glow glow-1"></div>
 <div class="glow glow-2"></div>
 <div class="glow glow-3"></div>
 
-<!-- ОСНОВНАЯ КАРТОЧКА -->
-<div class="card">
-    <div class="card-image">
-        <img src="https://img.freepik.com/free-vector/cute-sad-cat-sitting-rain-cloud-cartoon-vector-icon-illustration-animal-nature-isolated-flat_138676-14969.jpg?semt=ais_hybrid&w=740&q=80" alt="Block illustration" loading="lazy">
+<main class="bento-container">
+    
+    <!-- 1. Главная карточка (Hero) -->
+    <div class="bento-card card-hero">
+        <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Smilies/Pleading%20Face.png" alt="Упс" class="sticker" loading="lazy">
+        <div>
+            <h1>Ой, доступ из вашего региона закрыт</h1>
+            <p>Мы искренне хотели бы пустить вас на сайт прямо сейчас, но местные интернет-провайдеры заблокировали прямое подключение к нашим серверам. Пожалуйста, не переживайте за свои данные — они находятся в полной безопасности, а обойти эту блокировку можно буквально за одну-две минуты с помощью подробной инструкции ниже!</p>
+        </div>
     </div>
 
-    <div class="card-content">
-        <div class="status-badge fade-in-item delay-1">Доступ ограничен</div>
-        <h1 class="fade-in-item delay-2">Вход недоступен</h1>
+    <!-- 2. Инструкция -->
+    <div class="bento-card card-instructions">
+        <h2>Как легко вернуть доступ?</h2>
+        <div class="checklist">
+            <div class="check-item">
+                <div class="check-emoji">🧹</div>
+                <div class="check-text">
+                    Шаг 1: Очистите кэш вашего браузера
+                    <span>Иногда ваш браузер запоминает старую ошибку и показывает её снова. Чтобы этого избежать, просто нажмите комбинацию клавиш <b>Ctrl и F5</b> на клавиатуре вашего компьютера, или очистите историю сайта в настройках телефона.</span>
+                </div>
+            </div>
+            <div class="check-item">
+                <div class="check-emoji">🌍</div>
+                <div class="check-text">
+                    Шаг 2: Включите надежный VPN
+                    <span>Запустите любое качественное VPN-приложение на вашем устройстве. Мы рекомендуем выбирать серверы, расположенные в Европе (например, в Германии или Нидерландах), так как они работают быстрее всего.</span>
+                </div>
+            </div>
+            <div class="check-item">
+                <div class="check-emoji">🔄</div>
+                <div class="check-text">
+                    Шаг 3: Обновите эту страницу
+                    <span>Как только ваш виртуальный IP-адрес успешно изменится, наша защитная система радостно поприветствует вас и пропустит обратно в ваш личный кабинет.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. Рекомендованные VPN -->
+    <div class="bento-card card-vpns">
+        <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Satellite%20Antenna.png" alt="Связь" class="sticker-small" loading="lazy">
+        <h2>Где взять VPN?</h2>
+        <p style="margin-bottom: 16px;">Если у вас еще нет своего VPN, вы можете временно использовать популярные сервисы (не забудьте включить их перед обновлением):</p>
+        <div class="vpn-list">
+            <a href="#" class="vpn-item" onclick="return false;"><span class="vpn-icon">🛡️</span> 1.1.1.1 (WARP)</a>
+            <a href="#" class="vpn-item" onclick="return false;"><span class="vpn-icon">🚀</span> Planet VPN</a>
+            <a href="#" class="vpn-item" onclick="return false;"><span class="vpn-icon">⚡</span> WireGuard (Свои ключи)</a>
+            <a href="#" class="vpn-item" onclick="return false;"><span class="vpn-icon">🌐</span> AdGuard VPN</a>
+        </div>
+    </div>
+
+    <!-- 4. Большая база знаний (FAQ) -->
+    <div class="bento-card card-faq">
+        <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Smilies/Thinking%20Face.png" alt="Вопрос" class="sticker-small" loading="lazy">
+        <h2>Ответы на все ваши вопросы</h2>
         
-        <p class="fade-in-item delay-3">
-            Мы искренне сожалеем, но в связи с текущими техническими ограничениями, мы не обслуживаем пользователей с российским IP-адресом. Наша система зафиксировала подключение из ограниченного региона.
-        </p>
+        <div class="faq-wrapper">
+            <div class="faq-item">
+                <button type="button" class="faq-question">
+                    Слушайте, а как понять, что это не ваши сервера упали, а реально провайдер блокирует?
+                    <div class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></div>
+                </button>
+                <div class="faq-answer-wrapper"><div class="faq-answer-inner">
+                    <p>Всё очень просто! Прямо сейчас все наши основные серверы, базы данных и мощная система защиты работают в абсолютно штатном режиме (статус: 100% Онлайн).</p>
+                    <p>Проблема возникает исключительно на этапе маршрутизации — ваш местный оператор связи просто отказывается пропускать сигнал к нашему зарубежному шлюзу. Как только вы включаете VPN, маршрут меняется, и сайт моментально открывается!</p>
+                </div></div>
+            </div>
 
-        <div class="divider fade-in-item delay-4"></div>
+            <div class="faq-item">
+                <button type="button" class="faq-question">
+                    А вы точно даете гарантию, что пока я сижу через эти VPN, мои данные в безопасности?
+                    <div class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></div>
+                </button>
+                <div class="faq-answer-wrapper"><div class="faq-answer-inner">
+                    <p>Мы даем вам абсолютную гарантию! Временный технический фильтр провайдера никак не может повлиять на нашу внутреннюю систему защиты.</p>
+                    <p>Все ваши активные сессии и история операций надежно зашифрованы по самым жестким современным стандартам. VPN всего лишь помогает вам "постучаться" в нашу защищенную дверь с другой стороны, так что переживать совершенно не о чем.</p>
+                    <p> <span class="highlight-danger">КРОМЕ БЕСПЛАТНЫХ VPN/PROXY</span></p>
 
-        <h3 class="fade-in-item delay-5">Как получить доступ?</h3>
-        <ul class="steps-list fade-in-item delay-6">
-            <li><span>1</span> Включите надежный VPN-клиент на вашем устройстве.</li>
-            <li><span>2</span> Выберите сервер в любой другой стране (например, Европа или Азия).</li>
-            <li><span>3</span> Обновите страницу, чтобы получить доступ ко всем функциям.</li>
-        </ul>
+                </div></div>
+            </div>
 
-        <p class="love-message fade-in-item delay-6">
-            Мы продолжаем работать для вас и надеемся на скорейшее решение ситуации. Любим вас ❤️
-        </p>
+            <div class="faq-item">
+                <button type="button" class="faq-question">
+                    Мой аккаунт заблокировали?
+                    <div class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></div>
+                </button>
+                <div class="faq-answer-wrapper"><div class="faq-answer-inner">
+                    <p>Абсолютно нет, вам совершенно не о чем волноваться! Ваш личный аккаунт и история действий находятся под надежной защитой на наших зашифрованных серверах.</p>
+                    <p>Мы вас не блокировали, мы вас очень ждем!</p>
+                </div></div>
+            </div>
 
-        <button class="btn fade-in-item delay-7" onclick="location.reload()">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 2v6h-6M2.13 15.57a9 9 0 1 0 3.87-11.61l-4.8 4.8"/></svg>
-            Проверить соединение
-        </button>
+            <div class="faq-item">
+                <button type="button" class="faq-question">
+                    А зачем вообще нужно включать VPN?
+                    <div class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></div>
+                </button>
+                <div class="faq-answer-wrapper"><div class="faq-answer-inner">
+                    <p>VPN работает как невидимый безопасный туннель, который полностью меняет вашу виртуальную гео-позицию в интернете.</p>
+                    <p>Когда вы его включаете, наша система защиты думает, что вы заходите на сайт, например, из уютного кафе в Германии. Поскольку там блокировок нет, система беспрепятственно пропускает вас на сайт.</p>
+                </div></div>
+            </div>
+
+            <div class="faq-item">
+                <button type="button" class="faq-question">
+                    Можно ли использовать бесплатный VPN или прокси?
+                    <div class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></div>
+                </button>
+                <div class="faq-answer-wrapper"><div class="faq-answer-inner">
+                    <p>Мы <span class="highlight-danger">настоятельно рекомендуем быть очень осторожными</span> с бесплатными VPN-сервисами и публичными прокси. Зачастую они могут быть крайне опасными для ваших личных данных.</p>
+                    <p>Владельцы таких бесплатных программ зарабатывают на том, что перехватывают ваши пароли, встраивают скрытую рекламу прямо на сайты или даже продают информацию о ваших действиях мошенникам. Кроме того, бесплатные сервисы работают ужасно медленно и постоянно выдают ошибки из-за перегрузки.</p>
+                </div></div>
+            </div>
+
+            <div class="faq-item">
+                <button type="button" class="faq-question">
+                    Правда ли, что с мобильного интернета заходит без VPN?
+                    <div class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></div>
+                </button>
+                <div class="faq-answer-wrapper"><div class="faq-answer-inner">
+                    <p>Действительно, у некоторых операторов сотовой связи (таких как МТС, Tele2 или Мегафон) интернет-трафик идет по совершенно другим, более сложным маршрутам. Из-за этого сайт иногда может открыться сам по себе, даже без включенного VPN.</p>
+                </div></div>
+            </div>
+
+            <div class="faq-item">
+                <button type="button" class="faq-question">
+                    У меня выдает ошибку 502 или 504. Что мне делать?
+                    <div class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></div>
+                </button>
+                <div class="faq-answer-wrapper"><div class="faq-answer-inner">
+                    <p>Если вы видите на экране цифры 502 или 504, это означает только одно — ваш текущий VPN-сервис не справляется с нагрузкой, или его сервер работает слишком медленно, чтобы передать данные.</p>
+                    <p>Решение этой проблемы очень простое: откройте ваше VPN-приложение, выберите другой город или страну (желательно поближе к вам) и переподключитесь.</p>
+                </div></div>
+            </div>
+
+            <div class="faq-item">
+                <button type="button" class="faq-question">
+                    Когда вы наконец почините доступ напрямую без программ?
+                    <div class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></div>
+                </button>
+                <div class="faq-answer-wrapper"><div class="faq-answer-inner">
+                    <p>Прямо сейчас наша крутая команда технических специалистов работает и днем, и ночью! Мы уже активно готовим безопасные <b>«зеркала» сайта</b>, чтобы вы могли заходить по новым адресам без всяких препятствий.</p>
+                    <p>Но самая главная и радостная новость — <span class="highlight-primary">мы разрабатываем наш собственный, полностью личный и безопасный VPN-сервис</span> специально и только для наших пользователей!</p>
+                </div></div>
+            </div>
+            
+            <div class="faq-item">
+                <button type="button" class="faq-question">
+                    Я всё включил по инструкции, как мне проверить работу?
+                    <div class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></div>
+                </button>
+                <div class="faq-answer-wrapper"><div class="faq-answer-inner">
+                    <p>Это самое простое! Как только вы включите VPN или прокси в другой стране, просто прокрутите эту страницу в самый низ и нажмите на большую белую кнопку с надписью «Обновить страницу».</p>
+                </div></div>
+            </div>
+        </div>
     </div>
-</div>
+
+    <!-- 5. Поддержка и Кнопки -->
+ <div class="bento-card card-support">
+        <div>
+            <h2>У вас всё еще остались вопросы? Мы с радостью поможем!</h2>
+            <p>Если наша огромная инструкция вам не помогла, или вы просто запутались в настройках, смело пишите нам в личные сообщения Telegram. Наша команда всегда на связи и готова лично помочь вам с решением любой проблемы.</p>
+        </div>
+        
+        <div class="btn-group">
+            <button class="btn btn-refresh" onclick="location.reload()">
+                <span class="refresh-icon">🔄</span> 
+                Обновить страницу
+            </button>
+
+            <a href="https://t.me/wuzeco" target="_blank" rel="noopener noreferrer" class="btn btn-tg">
+                <span class="tg-icon">✈️</span>
+                Написать @wuzeco
+            </a>
+
+</main>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const faqItems = document.querySelectorAll('.faq-item');
+        
+        faqItems.forEach(item => {
+            const button = item.querySelector('.faq-question');
+            
+            button.addEventListener('click', (e) => {
+                e.preventDefault(); 
+                
+                const isActive = item.classList.contains('active');
+                
+                faqItems.forEach(otherItem => {
+                    if (otherItem !== item) {
+                        otherItem.classList.remove('active');
+                    }
+                });
+                
+                if (isActive) {
+                    item.classList.remove('active');
+                } else {
+                    item.classList.add('active');
+                }
+            });
+        });
+    });
+</script>
 
 </body>
 </html>
